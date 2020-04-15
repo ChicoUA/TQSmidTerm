@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'City Name: ' + ${greeting.city}" />
+<p th:text="'Country Code: ' + ${greeting.country}" />
+<p th:text="'Air Quality Index: ' + ${aqi}" />
+<p th:text="'PM10: ' + ${pm10}" />
+<p th:text="'PM25: ' + ${pm25}" />
+<p th:text="'03: ' + ${o3}" />
+<p th:text="'SO2: ' + ${so2}" />
+<p th:text="'NO2: ' + ${no2}" />
+<p th:text="'CO: ' + ${co}" />
+<p th:text="'Tree Pollen Level: ' + ${plt}" />
+<p th:text="'Grass Pollen Level: ' + ${plg}" />
+<p th:text="'Weed Pollen Level: ' + ${plw}" />
+<a href="/greeting">Search other city</a>
+</body>
+</html>
