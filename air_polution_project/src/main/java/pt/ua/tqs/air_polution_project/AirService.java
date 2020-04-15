@@ -50,11 +50,11 @@ public class AirService {
             json = json.getJSONArray("data").getJSONObject(0);
             int aqi = (int) json.get("aqi");
 
-            double no2 = (double) json.get("no2");
+            double no2 = (int) json.get("no2");
             double pm10 = (int) json.get("pm10");
-            double o3 = (double) json.get("o3");
+            double o3 = (int) json.get("o3");
             double pm25 = (int) json.get("pm25");
-            double so2 = (double) json.get("so2");
+            double so2 = (int) json.get("so2");
             int pollen_level_grass = (int) json.get("pollen_level_grass");
             double co = (int) json.get("co");
             int pollen_level_tree = (int) json.get("pollen_level_tree");
