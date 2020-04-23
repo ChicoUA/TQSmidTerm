@@ -42,6 +42,7 @@ public class AirService {
 
         String url = "https://api.weatherbit.io/v2.0/current/airquality?city="+city+"&country="+country+"&key=79499cb6bff5492e90e1aaced70a1779";
         InputStream is = new URL(url).openStream();
+        double no2, o3, pm25, so2, co, pm10;
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
@@ -49,16 +50,19 @@ public class AirService {
             String city_name = (String) json.get("city_name");
             json = json.getJSONArray("data").getJSONObject(0);
             int aqi = (int) json.get("aqi");
-
-            double no2 = (int) json.get("no2");
-            double pm10 = (int) json.get("pm10");
-            double o3 = (int) json.get("o3");
-            double pm25 = (int) json.get("pm25");
-            double so2 = (int) json.get("so2");
-            int pollen_level_grass = (int) json.get("pollen_level_grass");
-            double co = (int) json.get("co");
-            int pollen_level_tree = (int) json.get("pollen_level_tree");
-            int pollen_level_weed = (int) json.get("pollen_level_weed");
+            if(json.get("no2").getClass() == Double.class) {
+                no2 = (double) json.get("no2");
+            }else{
+                no2 = (int) json.get("no2");
+            }
+            pm10 = getValueFromJSON(json.get("pm10"));
+            o3 = getValueFromJSON(json.get("o3"));
+            pm25 = getValueFromJSON(json.get("pm25"));
+            so2 = getValueFromJSON(json.get("so2"));
+            int pollen_level_grass = getValueIfNull(json.get("pollen_level_grass"));
+            co = getValueFromJSON(json.get("co"));
+            int pollen_level_tree =  getValueIfNull(json.get("pollen_level_tree"));
+            int pollen_level_weed =  getValueIfNull(json.get("pollen_level_weed"));
 
             airQualityObject = new AirQualityObject(aqi, pm10, pm25, o3, so2, no2, co, pollen_level_tree, pollen_level_weed, pollen_level_grass, city_name);
             airCache.addToCache(airQualityObject);
@@ -71,6 +75,26 @@ public class AirService {
         }
 
 
+    }
+
+    public static double getValueFromJSON(Object jsonObject){
+        double value;
+        if(jsonObject.getClass() == Double.class){
+            value = (double) jsonObject;
+        }
+        else{
+            value = (int) jsonObject;
+        }
+        return value;
+    }
+
+    public static int getValueIfNull(Object jsonObject){
+        try{
+            return (int) jsonObject;
+        }
+        catch(Exception e){
+            return 0;
+        }
     }
 
     public static void main(String[] args) throws IOException, JSONException {

@@ -38,6 +38,6 @@ public class AirRestControllerIT {
                 .andExpect(jsonPath("$.city_name", is("Aveiro")));
 
     }
-
-
+    // CIDADES INVALIDAS
+    // Jacoco para sonar cube
 }
